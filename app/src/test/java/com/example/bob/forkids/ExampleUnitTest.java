@@ -1,4 +1,4 @@
-package com.example.bob.navigationapp;
+package com.example.bob.forkids;
 
 import org.junit.Test;
 

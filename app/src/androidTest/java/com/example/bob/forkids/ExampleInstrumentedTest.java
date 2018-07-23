@@ -1,4 +1,4 @@
-package com.example.bob.navigationapp;
+package com.example.bob.forkids;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
