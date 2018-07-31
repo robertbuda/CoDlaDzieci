@@ -8,12 +8,12 @@
     android:id="@+id/fragmentHome">
 
     <TextView
-        android:id="@+id/textHome"
+        android:id="@+id/text_overview"
         android:layout_marginTop="32dp"
         android:layout_marginStart="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/title_home"
+        android:text="@string/przegladaj"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp"
         android:layout_width="wrap_content"

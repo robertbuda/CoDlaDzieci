@@ -3,13 +3,24 @@ package com.example.bob.codladzieci;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    private HomeFragment homefragment = new HomeFragment();
+    private OverviewFragment overviewFragment = new OverviewFragment();
+    private SearchFragment searchFragment = new SearchFragment();
+    private FavouritesFragment favouritesFragment = new FavouritesFragment();
+    private LibraryFragment libraryFragment = new LibraryFragment();
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -18,19 +29,19 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    changeFragment(homefragment);
                     return true;
                 case R.id.navigation_overview:
-                    mTextMessage.setText(R.string.title_overview);
+                    changeFragment(overviewFragment);
                     return true;
                 case R.id.navigation_search:
-                    mTextMessage.setText(R.string.title_search);
+                    changeFragment(searchFragment);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    changeFragment(favouritesFragment);
                     return true;
                 case R.id.navigation_library:
-                    mTextMessage.setText(R.string.title_library);
+                    changeFragment(libraryFragment);
                     return true;
             }
             return false;
@@ -47,6 +58,31 @@ public class MainActivity extends AppCompatActivity {
         final int titleAlwaysVisible = 1;
         navigation.setLabelVisibilityMode(titleAlwaysVisible);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+       /* FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment = new Fragment();
+        fragmentTransaction.replace(R.id.frameLayoutFragment,fragment);
+        fragmentTransaction.commit();*/
+        changeFragment(homefragment);
+    }
+
+    private void changeFragment(Fragment fragment) {
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frameLayoutFragment, fragment)
+                .commit();
+    }
+
+    public void showFloatingButton () {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 }
