@@ -1,4 +1,4 @@
-package com.example.bob.forkids;
+package com.example.bob.codladzieci;
 
 import org.junit.Test;
 

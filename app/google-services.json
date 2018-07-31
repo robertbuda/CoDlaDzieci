@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "833377994632",
+    "firebase_url": "https://codladzieci-b0145.firebaseio.com",
+    "project_id": "codladzieci-b0145",
+    "storage_bucket": "codladzieci-b0145.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833377994632:android:a5c1d55defe1d8f8",
+        "android_client_info": {
+          "package_name": "com.example.bob.codladzieci"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833377994632-9ln012ovuj3f9mc13fgktc205r36r7qg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bob.codladzieci",
+            "certificate_hash": "c2cda0432d2bfb7144cb673b9e3e054e864646ba"
+          }
+        },
+        {
+          "client_id": "833377994632-9v31f9o3cqg8bkb4kmn8el8bn0sh3e2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ8loa4gwgqVkXzdgVC8g_3bqw_lC7V7k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833377994632-9v31f9o3cqg8bkb4kmn8el8bn0sh3e2n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

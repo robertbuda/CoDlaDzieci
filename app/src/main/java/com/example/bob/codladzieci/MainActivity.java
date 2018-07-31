@@ -1,4 +1,4 @@
-package com.example.bob.forkids;
+package com.example.bob.codladzieci;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
