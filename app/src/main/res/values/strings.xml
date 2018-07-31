@@ -10,4 +10,6 @@
     <string name="szukaj">Szukaj</string>
     <string name="ulubione">Ulubione</string>
     <string name="biblioteka">Biblioteka</string>
+    <string name="wyloguj">Wyloguj</string>
+    <string name="zaloguj">Zaloguj</string>
 </resources>
