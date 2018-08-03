@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:orientation="vertical"
+    android:layout_centerHorizontal="true">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawablePadding="16dp"
+            android:drawableStart="@mipmap/ic_launcher_codladzieci"
+            />
+
+        <TextView
+            android:id="@+id/addActivityForKids"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Dodaj wydarzenie dla dzieci"
+            android:padding="16dp"
+            android:gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawablePadding="16dp"
+            android:drawableStart="@mipmap/ic_launcher_codladzieci"
+            />
+
+        <TextView
+            android:id="@+id/addYourAvailability"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Dodaj swoją dostępność"
+            android:padding="16dp"
+            android:gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

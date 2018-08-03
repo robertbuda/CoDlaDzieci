@@ -16,13 +16,13 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
+    private static final String TAG = "MainActivity";
+
     private HomeFragment homefragment = new HomeFragment();
     private OverviewFragment overviewFragment = new OverviewFragment();
     private SearchFragment searchFragment = new SearchFragment();
     private FavouritesFragment favouritesFragment = new FavouritesFragment();
     private LibraryFragment libraryFragment = new LibraryFragment();
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -55,23 +55,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         final int titleAlwaysVisible = 1;
         navigation.setLabelVisibilityMode(titleAlwaysVisible);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-       /* FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment fragment = new Fragment();
-        fragmentTransaction.replace(R.id.frameLayoutFragment,fragment);
-        fragmentTransaction.commit();*/
         changeFragment(homefragment);
         showFloatingButton();
     }
 
     private void changeFragment(Fragment fragment) {
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frameLayoutFragment, fragment)
@@ -83,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+            CardDialog cardDialog = new CardDialog();
+            cardDialog.setCancelable(true);
+            cardDialog.show(getSupportFragmentManager(),TAG);
             }
         });
     }
