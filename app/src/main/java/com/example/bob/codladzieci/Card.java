@@ -4,28 +4,28 @@ public class Card {
 
     private String cardTitle;
     private String cardCategory;
-    private int cardKidsAgeFrom;
-    private int cardKidsAgeTo;
+    private int cardKidsAge;
+    private int cardDate;
     private int cardPrice;
     private String cardShortInfo;
     private String cardLongInfo;
     private String organizerName;
-    private String organizatorAddress;
+    private String organizerAddress;
     private String cardPhotoUrl;
 
     public Card() {
     }
 
-    public Card(String cardTitle, String cardCategory, int cardKidsAgeFrom, int cardKidsAgeTo, int cardPrice, String cardShortInfo, String cardLongInfo, String organizerName, String organizatorAddress, String cardPhotoUrl) {
+    public Card(String cardTitle, String cardCategory, int cardKidsAge, int cardDate, int cardPrice, String cardShortInfo, String cardLongInfo, String organizerName, String organizerAddress, String cardPhotoUrl) {
         this.cardTitle = cardTitle;
         this.cardCategory = cardCategory;
-        this.cardKidsAgeFrom = cardKidsAgeFrom;
-        this.cardKidsAgeTo = cardKidsAgeTo;
+        this.cardKidsAge = cardKidsAge;
+        this.cardDate = cardDate;
         this.cardPrice = cardPrice;
         this.cardShortInfo = cardShortInfo;
         this.cardLongInfo = cardLongInfo;
         this.organizerName = organizerName;
-        this.organizatorAddress = organizatorAddress;
+        this.organizerAddress = organizerAddress;
         this.cardPhotoUrl = cardPhotoUrl;
     }
 
@@ -45,20 +45,20 @@ public class Card {
         this.cardCategory = cardCategory;
     }
 
-    public int getCardKidsAgeFrom() {
-        return cardKidsAgeFrom;
+    public int getCardKidsAge() {
+        return cardKidsAge;
     }
 
-    public void setCardKidsAgeFrom(int cardKidsAgeFrom) {
-        this.cardKidsAgeFrom = cardKidsAgeFrom;
+    public void setCardKidsAge(int cardKidsAge) {
+        this.cardKidsAge = cardKidsAge;
     }
 
-    public int getCardKidsAgeTo() {
-        return cardKidsAgeTo;
+    public int getCardDate() {
+        return cardDate;
     }
 
-    public void setCardKidsAgeTo(int cardKidsAgeTo) {
-        this.cardKidsAgeTo = cardKidsAgeTo;
+    public void setCardDate(int cardDate) {
+        this.cardDate = cardDate;
     }
 
     public int getCardPrice() {
@@ -94,11 +94,11 @@ public class Card {
     }
 
     public String getOrganizatorAddress() {
-        return organizatorAddress;
+        return organizerAddress;
     }
 
     public void setOrganizatorAddress(String organizatorAddress) {
-        this.organizatorAddress = organizatorAddress;
+        this.organizerAddress = organizerAddress;
     }
 
     public String getCardPhotoUrl() {

@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:padding="8dp"
     android:orientation="vertical"
-    android:layout_centerHorizontal="true">
+    >
 
 
     <TextView
         android:id="@+id/organizatorAsk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Jesteś organizatorem?"
+        android:text="Organizujesz wydarzenia dla dzieci?"
         android:padding="16dp"
         android:textStyle="bold"
+        android:drawableStart="@drawable/ic_child_care_black_24dp"
+        android:drawablePadding="16dp"
         android:gravity="center_vertical"
         />
     <TextView
@@ -22,19 +24,23 @@
         android:layout_height="wrap_content"
         android:text="Dodaj wydarzenie dla dzieci"
         android:padding="16dp"
-        android:drawableStart="@drawable/ic_child_care_black_24dp"
-        android:drawablePadding="16dp"
+        android:paddingStart="24dp"
         android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_add_grey_24dp"
+        android:drawablePadding="16dp"
+        android:background="@drawable/common_google_signin_btn_text_light_normal_background"
         />
     <TextView
         android:id="@+id/addYourPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dodaj miejsce"
+        android:text="Dodaj miejsce dla dzieci"
         android:padding="16dp"
-        android:drawableStart="@drawable/ic_place_black_24dp"
-        android:drawablePadding="16dp"
+        android:paddingStart="24dp"
         android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_add_grey_24dp"
+        android:drawablePadding="16dp"
+        android:background="@drawable/common_google_signin_btn_text_light_normal_background"
         />
 
 
@@ -46,16 +52,20 @@
         android:padding="16dp"
         android:textStyle="bold"
         android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_accessibility_black_24dp"
+        android:drawablePadding="16dp"
         />
     <TextView
         android:id="@+id/addAnimatorAvailability"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dodaj swoją dostępność"
+        android:text="Dodaj gotowość do działania"
         android:padding="16dp"
-        android:drawableStart="@drawable/ic_accessibility_black_24dp"
-        android:drawablePadding="16dp"
+        android:paddingStart="24dp"
         android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_add_grey_24dp"
+        android:drawablePadding="16dp"
+        android:background="@drawable/common_google_signin_btn_text_light_normal_background"
         />
 
 
@@ -67,6 +77,8 @@
         android:padding="16dp"
         android:textStyle="bold"
         android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_child_friendly_black_24dp"
+        android:drawablePadding="16dp"
         />
     <TextView
         android:id="@+id/addNannyAvailability"
@@ -74,9 +86,11 @@
         android:layout_height="wrap_content"
         android:text="Dodaj swoją dostępność"
         android:padding="16dp"
-        android:drawableStart="@drawable/ic_child_friendly_black_24dp"
-        android:drawablePadding="16dp"
+        android:paddingStart="24dp"
         android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_add_grey_24dp"
+        android:drawablePadding="16dp"
+        android:background="@drawable/common_google_signin_btn_text_light_normal_background"
         />
 
 
