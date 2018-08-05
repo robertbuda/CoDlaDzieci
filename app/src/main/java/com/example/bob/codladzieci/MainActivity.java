@@ -1,7 +1,9 @@
 package com.example.bob.codladzieci;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -12,11 +14,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+
+    //@BindView(R.id.addActivityForKids) TextView addActivityForKids;
+    @BindView(R.id.navigation) BottomNavigationView navigation;
+    @BindView(R.id.fab) FloatingActionButton fab;
 
     private HomeFragment homefragment = new HomeFragment();
     private OverviewFragment overviewFragment = new OverviewFragment();
@@ -55,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        ButterKnife.bind(this);
+
+        //BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         final int titleAlwaysVisible = 1;
         navigation.setLabelVisibilityMode(titleAlwaysVisible);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -72,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showFloatingButton () {
-        FloatingActionButton fab = findViewById(R.id.fab);
+        //FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
+    public void addActivityForKids(View view) {
+        Intent intent = new Intent(this, AddCardActivity.class);
+        startActivity(intent);
+    }
 }

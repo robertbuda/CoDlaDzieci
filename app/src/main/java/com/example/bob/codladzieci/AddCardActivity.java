@@ -12,4 +12,9 @@ public class AddCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_card);
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

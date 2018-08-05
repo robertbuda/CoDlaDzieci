@@ -29,6 +29,7 @@
         android:drawableStart="@drawable/ic_add_grey_24dp"
         android:drawablePadding="16dp"
         android:background="@drawable/common_google_signin_btn_text_light_normal_background"
+        android:onClick="addActivityForKids"
         />
     <TextView
         android:id="@+id/addYourPlace"

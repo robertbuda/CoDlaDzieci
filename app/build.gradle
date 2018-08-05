@@ -45,4 +45,8 @@ dependencies {
     //Google Map
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
 
+    //ButterKnife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
 }

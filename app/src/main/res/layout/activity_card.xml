@@ -1,14 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
     >
 
-    <EditText
-        android:id="@+id/cardTitle"
+    <TextView
+        android:id="@+id/addInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tytuł"/>
+        android:hint="Dodaj wydarzenie dla dzieci"
+        android:padding="16dp"
+        android:textStyle="bold" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/TilCardTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputCardTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tytuł np. Zajęcia przedprzedszkolne Smok Wawelski"
+            android:padding="16dp"
+            android:inputType="text"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/TilCardCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputCardCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Rodzaj wydarzenia np. zajęcia plastyczne"
+            android:padding="16dp"
+            android:inputType="text"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/TilCardKidsAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputKidsAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Wiek dziecka w latach np. 2"
+            android:padding="16dp"
+            android:inputType="number"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/TilCardDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Data wydarzenia"
+            android:padding="16dp"
+            android:inputType="date"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/TilCardPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cena PLN np. 20"
+            android:padding="16dp"
+            android:inputType="number"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/TilCardShortInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputShortInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Krótki opis np. świetne zajęcia dla maluszków"
+            android:padding="16dp"
+            android:inputType="text"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/TilCardLongInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputLongInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Opis"
+            android:padding="16dp"
+            android:inputType="text"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/TilCardOrganizerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputOrganizerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nazwa Organizatora np. Muzeum Sztuki"
+            android:padding="16dp"
+            android:inputType="text"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/TilCardOrganizerAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputOrganizerAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Adres Organizatora"
+            android:padding="16dp"
+            android:inputType="text"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/addCardPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dodaj zdjęcie"
+        android:padding="32dp"
+        android:drawableStart="@drawable/ic_add_a_photo_black_24dp"
+        android:drawablePadding="16dp"
+        />
+
+    <Button
+        android:id="@+id/addCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Zapisz i wyślij"
+        android:padding="32dp"/>
+
 
 
 </LinearLayout>
+
+    </ScrollView>
