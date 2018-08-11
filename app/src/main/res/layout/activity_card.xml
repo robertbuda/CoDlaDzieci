@@ -57,6 +57,7 @@
         android:layout_height="200dp">
 
     <ImageView
+        android:id="@+id/inputCardPhoto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorLightGrey"
@@ -201,7 +202,7 @@
 
 
     <Button
-        android:id="@+id/addCard"
+        android:id="@+id/buttonAddCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Zapisz i wyślij"

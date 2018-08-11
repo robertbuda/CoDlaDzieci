@@ -10,12 +10,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    //@BindView(R.id.addActivityForKids) TextView addActivityForKids;
     @BindView(R.id.navigation) BottomNavigationView navigation;
     @BindView(R.id.fab) FloatingActionButton fab;
 
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private SearchFragment searchFragment = new SearchFragment();
     private FavouritesFragment favouritesFragment = new FavouritesFragment();
     private LibraryFragment libraryFragment = new LibraryFragment();
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,16 +70,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
 
-        //BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         final int titleAlwaysVisible = 1;
         navigation.setLabelVisibilityMode(titleAlwaysVisible);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         changeFragment(homefragment);
         showFloatingButton();
+
     }
 
     private void changeFragment(Fragment fragment) {
