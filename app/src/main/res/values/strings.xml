@@ -13,4 +13,5 @@
     <string name="wyloguj">Wyloguj</string>
     <string name="zaloguj">Zaloguj</string>
     <string name="ustawienia">Ustawienia</string>
+    <string name="brak_danych">brak danych</string>
 </resources>
