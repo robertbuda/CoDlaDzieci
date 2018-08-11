@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.bob.navigationapp"
+        applicationId "com.example.bob.codladzieci"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -49,4 +49,10 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
+    //Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+
 }
+
+apply plugin: 'com.google.gms.google-services'
