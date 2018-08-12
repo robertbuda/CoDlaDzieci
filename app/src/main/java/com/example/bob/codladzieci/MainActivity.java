@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private FavouritesFragment favouritesFragment = new FavouritesFragment();
     private LibraryFragment libraryFragment = new LibraryFragment();
 
+    private CardDialog cardDialog;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            CardDialog cardDialog = new CardDialog();
+                cardDialog = new CardDialog();
             cardDialog.setCancelable(true);
             cardDialog.show(getSupportFragmentManager(),TAG);
             }
@@ -125,5 +127,12 @@ public class MainActivity extends AppCompatActivity {
     public void addActivityForKids(View view) {
         Intent intent = new Intent(this, AddCardActivity.class);
         startActivity(intent);
+        cardDialog.dismiss();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }

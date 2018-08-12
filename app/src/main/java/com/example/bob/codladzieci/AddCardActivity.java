@@ -1,5 +1,7 @@
 package com.example.bob.codladzieci;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,7 @@ public class AddCardActivity extends AppCompatActivity {
     private DatabaseReference mCardDatabaseReference;
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mCardPhotosStorageReference;
+    private Context context;
 
     @BindView(R.id.buttonAddCard) Button buttonAddCard;
     @BindView(R.id.textInputOrganizerName) TextView textInputOrganizerName;
@@ -50,15 +53,15 @@ public class AddCardActivity extends AppCompatActivity {
         buttonAddCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Card card = new Card(textInputCardTitle.getText().toString(),textInputCardCategory.getText().toString(),Integer.parseInt(textInputKidsAge.getText().toString()),Integer.parseInt(textInputDate.getText().toString()),Integer.parseInt(textInputPrice.getText().toString()),textInputShortInfo.getText().toString(),textInputLongInfo.getText().toString(),textInputOrganizerName.getText().toString(),textInputOrganizerAddress.getText().toString(),null);
-                mCardDatabaseReference.push().setValue(card);
-            }
-        });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+                //if (textInputCardTitle != null && textInputCardCategory != null && textInputOrganizerName != null) {
+                    Card card = new Card(textInputCardTitle.getText().toString(), textInputCardCategory.getText().toString(), Integer.parseInt(textInputKidsAge.getText().toString()), Integer.parseInt(textInputDate.getText().toString()), Integer.parseInt(textInputPrice.getText().toString()), textInputShortInfo.getText().toString(), textInputLongInfo.getText().toString(), textInputOrganizerName.getText().toString(), textInputOrganizerAddress.getText().toString(), null);
+                    mCardDatabaseReference.push().setValue(card);
+                    Intent intent = new Intent(context, MainActivity.class);
+                    startActivity(intent);
+                }
+
+        });
     }
 
 }

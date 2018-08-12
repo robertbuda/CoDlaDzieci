@@ -93,7 +93,9 @@ public class HomeFragment extends Fragment {
 
                     Card card = dataSnapshot.getValue(Card.class);
                     cardList.add(card);
-                    cardAdapter.notifyItemInserted(cardList.size() - 1);
+                    //cardAdapter.notifyItemInserted(cardList.size() - 1);
+                    //cardAdapter.notifyItemInserted(0);
+                    cardAdapter.notifyDataSetChanged();
                 }
 
                 @Override

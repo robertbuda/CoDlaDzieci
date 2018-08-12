@@ -43,7 +43,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
     itemCardOrganizerName.setText(card.getOrganizerName());
 
     TextView itemCardOrganizerAddress = holder.itemCardOrganizerAddress;
-    itemCardOrganizerAddress.setText(card.getOrganizatorAddress());
+    itemCardOrganizerAddress.setText(card.getOrganizerAddress());
 
     ImageView inputCardPhoto = holder.itemCardPhoto;
         Glide.with(inputCardPhoto.getContext())

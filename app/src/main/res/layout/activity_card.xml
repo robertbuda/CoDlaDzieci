@@ -27,7 +27,7 @@
             android:id="@+id/textInputOrganizerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Organizator np. Muzeum Sztuki"
+            android:hint="Organizator np. Muzeum"
             android:padding="16dp"
             android:inputType="text"
             />

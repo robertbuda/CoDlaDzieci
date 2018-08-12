@@ -93,11 +93,11 @@ public class Card {
         this.organizerName = organizerName;
     }
 
-    public String getOrganizatorAddress() {
+    public String getOrganizerAddress() {
         return organizerAddress;
     }
 
-    public void setOrganizatorAddress(String organizatorAddress) {
+    public void setOrganizerAddress(String organizerAddress) {
         this.organizerAddress = organizerAddress;
     }
 
