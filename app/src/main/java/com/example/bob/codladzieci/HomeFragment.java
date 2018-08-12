@@ -53,20 +53,25 @@ public class HomeFragment extends Fragment {
         mFirebaseStorage = FirebaseStorage.getInstance();
         mCardPhotosStorageReference = mFirebaseStorage.getReference().child("card_photos");
 
+        Card cardTest = new Card("Tytuł","Kategoria",1,22,49,"Info","Info długie","Organizator","Adres","URL");
+
         cardList = new ArrayList<>();
-        cardAdapter = new CardAdapter(cardList,context);
-        cardHomeRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        cardAdapter = new CardAdapter(cardList,this.getActivity());
+        cardHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         cardHomeRecyclerView.setAdapter(cardAdapter);
 
-        //attachDatabaseReadListener();
+        attachDatabaseReadListener();
 
-        mCardDatabaseReference.addValueEventListener(new ValueEventListener() {
+        //cardList.add(cardTest);
+        //cardAdapter.notifyItemInserted(cardList.size() - 1);
+
+      /*  mCardDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 Card card = dataSnapshot.getValue(Card.class);
                 cardList.add(card);
-                //cardAdapter.notifyDataSetChanged();
-
+                cardAdapter.notifyItemInserted(cardList.size() - 1);
 
             }
 
@@ -75,18 +80,20 @@ public class HomeFragment extends Fragment {
                 Log.w("ERROR", "Failed to read value.", databaseError.toException());
 
             }
-        });
+        });*/
 
         return view;
     }
 
-    /*private void attachDatabaseReadListener () {
+    private void attachDatabaseReadListener () {
         if (childEventListener == null) {
             childEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-
+                    Card card = dataSnapshot.getValue(Card.class);
+                    cardList.add(card);
+                    cardAdapter.notifyItemInserted(cardList.size() - 1);
                 }
 
                 @Override
@@ -107,5 +114,24 @@ public class HomeFragment extends Fragment {
             };
             mCardDatabaseReference.addChildEventListener(childEventListener);
         }
-    }*/
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        detachDatabaseReadListener();
+    }
+
+    private void detachDatabaseReadListener () {
+        if (childEventListener != null) {
+            mCardDatabaseReference.removeEventListener(childEventListener);
+            childEventListener = null;
+        }
+    }
 }

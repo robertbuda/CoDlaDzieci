@@ -60,13 +60,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
     itemCardCategory.setText(card.getCardCategory());
 
     TextView itemCardAge = holder.itemCardAge;
-    itemCardAge.setText(card.getCardKidsAge());
+    itemCardAge.setText(""+card.getCardKidsAge());
 
     TextView itemCardDate = holder.itemCardDate;
-    itemCardDate.setText(card.getCardDate());
+    itemCardDate.setText(""+card.getCardDate());
 
     TextView itemCardPrice = holder.itemCardPrice;
-    itemCardPrice.setText(card.getCardPrice());
+    itemCardPrice.setText(""+card.getCardPrice());
 
     TextView itemCardLongInfo = holder.itemCardLongInfo;
     itemCardLongInfo.setText(card.getCardLongInfo());
