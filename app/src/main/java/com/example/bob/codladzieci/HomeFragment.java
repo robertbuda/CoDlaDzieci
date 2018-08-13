@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -39,14 +40,16 @@ public class HomeFragment extends Fragment {
     private List<Card> cardList;
 
     @BindView(R.id.cardHomeRecyclerView) RecyclerView cardHomeRecyclerView;
-
+    @BindView(R.id.fragmentHomeProgressBar) ProgressBar fragmentHomeProgressBar;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
+        ButterKnife.bind(this,view);
+        //cardHomeRecyclerView = (RecyclerView) view.findViewById(R.id.cardHomeRecyclerView);
 
-        cardHomeRecyclerView = (RecyclerView) view.findViewById(R.id.cardHomeRecyclerView);
+        fragmentHomeProgressBar.setVisibility(View.VISIBLE);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mCardDatabaseReference = mFirebaseDatabase.getReference().child("cards");
@@ -96,6 +99,7 @@ public class HomeFragment extends Fragment {
                     //cardAdapter.notifyItemInserted(cardList.size() - 1);
                     //cardAdapter.notifyItemInserted(0);
                     cardAdapter.notifyDataSetChanged();
+                    fragmentHomeProgressBar.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
