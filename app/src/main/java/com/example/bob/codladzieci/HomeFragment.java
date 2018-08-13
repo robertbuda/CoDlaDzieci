@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
         mFirebaseStorage = FirebaseStorage.getInstance();
         mCardPhotosStorageReference = mFirebaseStorage.getReference().child("card_photos");
 
-        Card cardTest = new Card("Tytuł","Kategoria",1,22,49,"Info","Info długie","Organizator","Adres","URL");
+        //Card cardTest = new Card("Tytuł","Kategoria",1,22,49,"Info","Info długie","Organizator","Adres","URL");
 
         cardList = new ArrayList<>();
         cardAdapter = new CardAdapter(cardList,this.getActivity());
@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
                     Card card = dataSnapshot.getValue(Card.class);
                     cardList.add(card);
                     //cardAdapter.notifyItemInserted(cardList.size() - 1);
-                    //cardAdapter.notifyItemInserted(0);
+                    cardAdapter.notifyItemInserted(0);
                     cardAdapter.notifyDataSetChanged();
                     fragmentHomeProgressBar.setVisibility(View.INVISIBLE);
                 }
