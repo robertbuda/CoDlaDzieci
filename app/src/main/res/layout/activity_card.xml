@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:hint="Organizator np. Muzeum"
             android:padding="16dp"
-            android:inputType="text"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -45,7 +44,6 @@
             android:layout_height="wrap_content"
             android:hint="Adres"
             android:padding="16dp"
-            android:inputType="text"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -88,7 +86,6 @@
             android:layout_height="wrap_content"
             android:hint="Tytuł np. Zajęcia Smok Wawelski"
             android:padding="16dp"
-            android:inputType="text"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -103,7 +100,6 @@
             android:layout_height="wrap_content"
             android:hint="Krótki opis np. zajęcia ogólnorozwojowe dla maluszków"
             android:padding="16dp"
-            android:inputType="text"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -128,7 +124,6 @@
             android:layout_height="wrap_content"
             android:hint="Rodzaj np. plastyka"
             android:padding="16dp"
-            android:inputType="text"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -145,7 +140,6 @@
             android:layout_height="wrap_content"
             android:hint="Wiek dziecka w latach np. 2"
             android:padding="16dp"
-            android:inputType="number"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -162,8 +156,8 @@
             android:layout_height="wrap_content"
             android:hint="Data wydarzenia"
             android:padding="16dp"
-            android:inputType="date"
             />
+
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -179,7 +173,6 @@
             android:layout_height="wrap_content"
             android:hint="Cena PLN np. 20"
             android:padding="16dp"
-            android:inputType="number"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -196,10 +189,8 @@
             android:layout_height="wrap_content"
             android:hint="Opis"
             android:padding="16dp"
-            android:inputType="text"
             />
     </android.support.design.widget.TextInputLayout>
-
 
     <Button
         android:id="@+id/buttonAddCard"

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -64,7 +65,7 @@ public class AddCardActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //if (textInputCardTitle != null && textInputCardCategory != null && textInputOrganizerName != null) {
-                    Card card = new Card(textInputCardTitle.getText().toString(), textInputCardCategory.getText().toString(), Integer.parseInt(textInputKidsAge.getText().toString()), Integer.parseInt(textInputDate.getText().toString()), Integer.parseInt(textInputPrice.getText().toString()), textInputShortInfo.getText().toString(), textInputLongInfo.getText().toString(), textInputOrganizerName.getText().toString(), textInputOrganizerAddress.getText().toString(), photoUrl);
+                    Card card = new Card(textInputCardTitle.getText().toString(), textInputCardCategory.getText().toString(), textInputKidsAge.getText().toString(), textInputDate.getText().toString(), textInputPrice.getText().toString(), textInputShortInfo.getText().toString(), textInputLongInfo.getText().toString(), textInputOrganizerName.getText().toString(), textInputOrganizerAddress.getText().toString(), photoUrl);
                     mCardDatabaseReference.push().setValue(card);
                     Intent intent = new Intent(context, MainActivity.class);
                     startActivity(intent);
@@ -100,8 +101,11 @@ public class AddCardActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             photoUrl = uri.toString();
                             //inputCardPhoto.setImageBitmap(BitmapFactory.decodeFile(photoUrl));
+                            RequestOptions options = new RequestOptions();
+                            options.centerCrop();
                             Glide.with(inputCardPhoto.getContext())
                                     .load(uri)
+                                    .apply(options)
                                     .into(inputCardPhoto);
                         }
                     });

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
@@ -46,8 +47,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder> {
     itemCardOrganizerAddress.setText(card.getOrganizerAddress());
 
     ImageView inputCardPhoto = holder.itemCardPhoto;
+        RequestOptions options = new RequestOptions();
+        options.centerCrop();
         Glide.with(inputCardPhoto.getContext())
                 .load(card.getCardPhotoUrl())
+                .apply(options)
                 .into(inputCardPhoto);
 
     TextView itemCardTitle = holder.itemCardTitle;

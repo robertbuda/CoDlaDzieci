@@ -4,9 +4,9 @@ public class Card {
 
     private String cardTitle;
     private String cardCategory;
-    private int cardKidsAge;
-    private int cardDate;
-    private int cardPrice;
+    private String cardKidsAge;
+    private String cardDate;
+    private String cardPrice;
     private String cardShortInfo;
     private String cardLongInfo;
     private String organizerName;
@@ -16,7 +16,7 @@ public class Card {
     public Card() {
     }
 
-    public Card(String cardTitle, String cardCategory, int cardKidsAge, int cardDate, int cardPrice, String cardShortInfo, String cardLongInfo, String organizerName, String organizerAddress, String cardPhotoUrl) {
+    public Card(String cardTitle, String cardCategory, String cardKidsAge, String cardDate, String cardPrice, String cardShortInfo, String cardLongInfo, String organizerName, String organizerAddress, String cardPhotoUrl) {
         this.cardTitle = cardTitle;
         this.cardCategory = cardCategory;
         this.cardKidsAge = cardKidsAge;
@@ -45,27 +45,27 @@ public class Card {
         this.cardCategory = cardCategory;
     }
 
-    public int getCardKidsAge() {
+    public String getCardKidsAge() {
         return cardKidsAge;
     }
 
-    public void setCardKidsAge(int cardKidsAge) {
+    public void setCardKidsAge(String cardKidsAge) {
         this.cardKidsAge = cardKidsAge;
     }
 
-    public int getCardDate() {
+    public String getCardDate() {
         return cardDate;
     }
 
-    public void setCardDate(int cardDate) {
+    public void setCardDate(String cardDate) {
         this.cardDate = cardDate;
     }
 
-    public int getCardPrice() {
+    public String getCardPrice() {
         return cardPrice;
     }
 
-    public void setCardPrice(int cardPrice) {
+    public void setCardPrice(String cardPrice) {
         this.cardPrice = cardPrice;
     }
 

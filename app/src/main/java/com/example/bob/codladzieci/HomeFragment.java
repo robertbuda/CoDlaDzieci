@@ -18,11 +18,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,13 +34,14 @@ import butterknife.ButterKnife;
 public class HomeFragment extends Fragment {
 
     private CardAdapter cardAdapter;
-    private Context context;
     private ChildEventListener childEventListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mCardDatabaseReference;
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mCardPhotosStorageReference;
     private List<Card> cardList;
+
+    private Query myNewPost;
 
     @BindView(R.id.cardHomeRecyclerView) RecyclerView cardHomeRecyclerView;
     @BindView(R.id.fragmentHomeProgressBar) ProgressBar fragmentHomeProgressBar;
@@ -47,7 +51,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
         ButterKnife.bind(this,view);
-        //cardHomeRecyclerView = (RecyclerView) view.findViewById(R.id.cardHomeRecyclerView);
 
         fragmentHomeProgressBar.setVisibility(View.VISIBLE);
 
@@ -56,7 +59,7 @@ public class HomeFragment extends Fragment {
         mFirebaseStorage = FirebaseStorage.getInstance();
         mCardPhotosStorageReference = mFirebaseStorage.getReference().child("card_photos");
 
-        //Card cardTest = new Card("Tytuł","Kategoria",1,22,49,"Info","Info długie","Organizator","Adres","URL");
+        myNewPost = mCardDatabaseReference.child("cards").orderByChild("a");
 
         cardList = new ArrayList<>();
         cardAdapter = new CardAdapter(cardList,this.getActivity());
@@ -64,26 +67,6 @@ public class HomeFragment extends Fragment {
         cardHomeRecyclerView.setAdapter(cardAdapter);
 
         attachDatabaseReadListener();
-
-        //cardList.add(cardTest);
-        //cardAdapter.notifyItemInserted(cardList.size() - 1);
-
-      /*  mCardDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Card card = dataSnapshot.getValue(Card.class);
-                cardList.add(card);
-                cardAdapter.notifyItemInserted(cardList.size() - 1);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("ERROR", "Failed to read value.", databaseError.toException());
-
-            }
-        });*/
 
         return view;
     }
@@ -93,12 +76,11 @@ public class HomeFragment extends Fragment {
             childEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                     Card card = dataSnapshot.getValue(Card.class);
                     cardList.add(card);
-                    //cardAdapter.notifyItemInserted(cardList.size() - 1);
-                    cardAdapter.notifyItemInserted(0);
+                    //Collections.reverse(cardList);
                     cardAdapter.notifyDataSetChanged();
+                    //cardAdapter.notifyItemInserted(0);
                     fragmentHomeProgressBar.setVisibility(View.INVISIBLE);
                 }
 
@@ -125,7 +107,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     @Override
