@@ -2,9 +2,11 @@ package com.example.bob.codladzieci;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,6 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,8 +97,18 @@ public class AddCardActivity extends AppCompatActivity {
 
         if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {
             Uri selectedImageUri = data.getData();
+
+            Bitmap bmp = null;
+            try { bmp = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.JPEG, 5, baos);
+            byte[] fileInBytes = baos.toByteArray();
+
             StorageReference photoRef = mCardPhotosStorageReference.child(selectedImageUri.getLastPathSegment());
-            photoRef.putFile(selectedImageUri).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            photoRef.putBytes(fileInBytes).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -102,6 +117,7 @@ public class AddCardActivity extends AppCompatActivity {
                             photoUrl = uri.toString();
                             //inputCardPhoto.setImageBitmap(BitmapFactory.decodeFile(photoUrl));
                             RequestOptions options = new RequestOptions();
+                            //options.override(100);
                             options.centerCrop();
                             Glide.with(inputCardPhoto.getContext())
                                     .load(uri)
