@@ -25,6 +25,9 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +66,16 @@ public class AddCardActivity extends AppCompatActivity {
         mCardDatabaseReference = mFirebaseDatabase.getReference().child("cards");
         mFirebaseStorage = FirebaseStorage.getInstance();
         mCardPhotosStorageReference = mFirebaseStorage.getReference().child("card_photos");
+
+        textInputLongInfo.setEnabled(false);
+
+        //Date cal = (Date) Calendar.getInstance().getTime();
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = df.format(c.getTime());
+
+        textInputLongInfo.setText(formattedDate);
 
 
         buttonAddCard.setOnClickListener(new View.OnClickListener() {

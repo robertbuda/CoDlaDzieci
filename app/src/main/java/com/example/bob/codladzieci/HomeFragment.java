@@ -63,7 +63,10 @@ public class HomeFragment extends Fragment {
 
         cardList = new ArrayList<>();
         cardAdapter = new CardAdapter(cardList,this.getActivity());
-        cardHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        //cardHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        cardHomeRecyclerView.setLayoutManager(linearLayoutManager);
         cardHomeRecyclerView.setAdapter(cardAdapter);
 
         attachDatabaseReadListener();
@@ -100,6 +103,7 @@ public class HomeFragment extends Fragment {
                 public void onCancelled(DatabaseError databaseError) {
                 }
             };
+            mCardDatabaseReference.orderByValue();
             mCardDatabaseReference.addChildEventListener(childEventListener);
         }
     }
