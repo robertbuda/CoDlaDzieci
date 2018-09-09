@@ -1,6 +1,8 @@
 package com.example.bob.codladzieci;
 
 import android.content.Context;
+import android.net.Uri;
+import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,7 +25,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -102,6 +106,12 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                         cardList.remove(index);
                         listKeys.remove(index);
                         cardAdapter.notifyDataSetChanged();
+
+                        Card card = dataSnapshot.getValue(Card.class);
+                        String url = card.getCardPhotoUrl();
+                        StorageReference photoRef = mFirebaseStorage.getReferenceFromUrl(url);
+                        photoRef.delete();
+
                     }
                 }
 
@@ -137,7 +147,8 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
 
     @Override
     public void clickEventItem(int position) {
-        Toast.makeText(getActivity(),"Usuwanie " + position + listKeys.get(position),Toast.LENGTH_LONG).show();
+
         mCardDatabaseReference.child(listKeys.get(position)).removeValue();
+
     }
 }
