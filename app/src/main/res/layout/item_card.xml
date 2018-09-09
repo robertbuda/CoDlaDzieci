@@ -3,33 +3,29 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content" >
 
 <android.support.v7.widget.CardView
 xmlns:card_view="http://schemas.android.com/apk/res-auto"
 android:id="@+id/card_view"
 android:layout_gravity="center"
-    android:layout_margin="4dp"
-
-    android:layout_width="match_parent"
+android:layout_margin="4dp"
+android:layout_width="match_parent"
 android:layout_height="wrap_content"
 card_view:cardCornerRadius="4dp"
-card_view:cardElevation="4dp"
-    >
+card_view:cardElevation="4dp" >
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        >
+        android:padding="4dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2" >
 
             <TextView
                 android:id="@+id/itemCardOrganizerName"
@@ -37,52 +33,55 @@ card_view:cardElevation="4dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="4dp"
-                android:text="@string/brak_danych"
-                />
+                android:text="@string/brak_danych" />
+
             <TextView
                 android:id="@+id/itemCardOrganizerAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="4dp"
-                android:text="@string/brak_danych"
-                />
+                android:text="@string/brak_danych" />
 
         </LinearLayout>
 
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="200dp" >
 
             <ImageView
                 android:id="@+id/itemCardPhoto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorLightGrey"
-                />
+                android:background="@color/colorLightGrey" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="end">
+                android:layout_gravity="end" >
 
             <Button
                 android:id="@+id/addToFavorite"
-                android:layout_width="wrap_content"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_favorite_border_black_24dp"
-                android:drawablePadding="4dp"
-                />
+                android:drawablePadding="4dp" />
 
             <Button
-                android:id="@+id/deleteCard"
-                android:layout_width="wrap_content"
+                android:id="@+id/openLinkToOrganizer"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_delete_black_24dp"
-                android:drawablePadding="4dp"
-                />
+                android:drawableEnd="@drawable/ic_link_black_24dp"
+                android:drawablePadding="4dp" />
+
+            <Button
+                android:id="@+id/itemDeleteCard"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_delete_black_24dp"
+                android:drawablePadding="4dp" />
 
             </LinearLayout>
 
@@ -97,8 +96,7 @@ card_view:cardElevation="4dp"
             android:paddingStart="4dp"
             android:text="@string/brak_danych"
             android:textStyle="bold"
-            android:textSize="16dp"
-            >
+            android:textSize="16dp" >
         </TextView>
 
         <TextView
@@ -107,8 +105,7 @@ card_view:cardElevation="4dp"
             android:layout_height="wrap_content"
             android:text="@string/brak_danych"
             android:paddingStart="4dp"
-            android:paddingBottom="4dp"
-            >
+            android:paddingBottom="4dp" >
         </TextView>
 
 
@@ -117,9 +114,8 @@ card_view:cardElevation="4dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="5"
-            android:background="@color/colorLightGrey"
-            android:paddingStart="4dp">
-
+            android:paddingStart="4dp"
+            android:background="@color/colorLightGrey">
 
             <TextView
                 android:layout_width="0dp"
@@ -127,7 +123,7 @@ card_view:cardElevation="4dp"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="Kategoria"
-                >
+                android:textSize="8dp">
             </TextView>
 
             <TextView
@@ -136,7 +132,8 @@ card_view:cardElevation="4dp"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="Wiek"
-                >
+                android:textSize="8dp">
+
             </TextView>
 
             <TextView
@@ -145,7 +142,8 @@ card_view:cardElevation="4dp"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="Data"
-                >
+                android:textSize="8dp">
+
             </TextView>
 
             <TextView
@@ -154,7 +152,8 @@ card_view:cardElevation="4dp"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="Cena"
-                >
+                android:textSize="8dp">
+
             </TextView>
 
             <TextView
@@ -162,7 +161,9 @@ card_view:cardElevation="4dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="4dp"
-                android:text="Dodano">
+                android:text="Dodano"
+                android:textSize="8dp">
+
             </TextView>
 
         </LinearLayout>
@@ -172,8 +173,8 @@ card_view:cardElevation="4dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="5"
-            android:paddingStart="4dp">
-
+            android:paddingStart="4dp"
+            android:background="@color/colorLightGrey">
 
             <TextView
                 android:id="@+id/itemCardCategory"
@@ -181,8 +182,7 @@ card_view:cardElevation="4dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="4dp"
-                android:text="@string/brak_danych"
-                >
+                android:text="@string/brak_danych" >
             </TextView>
 
             <TextView
@@ -191,8 +191,7 @@ card_view:cardElevation="4dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="4dp"
-                android:text="@string/brak_danych"
-                >
+                android:text="@string/brak_danych" >
             </TextView>
 
             <TextView
@@ -201,8 +200,7 @@ card_view:cardElevation="4dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="4dp"
-                android:text="@string/brak_danych"
-                >
+                android:text="@string/brak_danych" >
             </TextView>
 
             <TextView
@@ -211,8 +209,7 @@ card_view:cardElevation="4dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="4dp"
-                android:text="@string/brak_danych"
-                >
+                android:text="@string/brak_danych" >
             </TextView>
 
             <TextView
@@ -221,11 +218,10 @@ card_view:cardElevation="4dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="4dp"
-                android:text="@string/brak_danych">
+                android:text="@string/brak_danych" >
             </TextView>
 
         </LinearLayout>
-
 
     </LinearLayout>
 

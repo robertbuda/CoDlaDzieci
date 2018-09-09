@@ -63,13 +63,11 @@ public class AddCardActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mCardDatabaseReference = mFirebaseDatabase.getReference().child("cards");
+        mCardDatabaseReference = mFirebaseDatabase.getReference();
         mFirebaseStorage = FirebaseStorage.getInstance();
         mCardPhotosStorageReference = mFirebaseStorage.getReference().child("card_photos");
 
         textInputLongInfo.setEnabled(false);
-
-        //Date cal = (Date) Calendar.getInstance().getTime();
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -77,14 +75,14 @@ public class AddCardActivity extends AppCompatActivity {
 
         textInputLongInfo.setText(formattedDate);
 
-
         buttonAddCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 //if (textInputCardTitle != null && textInputCardCategory != null && textInputOrganizerName != null) {
                     Card card = new Card(textInputCardTitle.getText().toString(), textInputCardCategory.getText().toString(), textInputKidsAge.getText().toString(), textInputDate.getText().toString(), textInputPrice.getText().toString(), textInputShortInfo.getText().toString(), textInputLongInfo.getText().toString(), textInputOrganizerName.getText().toString(), textInputOrganizerAddress.getText().toString(), photoUrl);
-                    mCardDatabaseReference.push().setValue(card);
+
+                    String key = mCardDatabaseReference.push().getKey();
+                    mCardDatabaseReference.child("cards").child(key).setValue(card);
                     Intent intent = new Intent(context, MainActivity.class);
                     startActivity(intent);
                 }
@@ -100,9 +98,7 @@ public class AddCardActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent,"Add photo to card"),RC_PHOTO_PICKER);
             }
         });
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -117,7 +113,7 @@ public class AddCardActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.JPEG, 5, baos);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 10, baos);
             byte[] fileInBytes = baos.toByteArray();
 
             StorageReference photoRef = mCardPhotosStorageReference.child(selectedImageUri.getLastPathSegment());
