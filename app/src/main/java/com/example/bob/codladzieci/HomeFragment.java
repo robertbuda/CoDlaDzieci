@@ -47,6 +47,8 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
     private List<Card> cardList;
     private List<String> listKeys;
     private CardsContract.CardAdapterInterface cardAdapterInterface;
+    private Context context;
+
 
     @BindView(R.id.cardHomeRecyclerView) RecyclerView cardHomeRecyclerView;
     @BindView(R.id.fragmentHomeProgressBar) ProgressBar fragmentHomeProgressBar;
@@ -109,9 +111,11 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
 
                         Card card = dataSnapshot.getValue(Card.class);
                         String url = card.getCardPhotoUrl();
-                        StorageReference photoRef = mFirebaseStorage.getReferenceFromUrl(url);
-                        photoRef.delete();
-
+                        if(url != null) {
+                            StorageReference photoRef = mFirebaseStorage.getReferenceFromUrl(url);
+                            //Toast.makeText(context,"Usuwanie " + photoRef, Toast.LENGTH_LONG).show();
+                            photoRef.delete();
+                        }
                     }
                 }
 
@@ -147,8 +151,6 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
 
     @Override
     public void clickEventItem(int position) {
-
         mCardDatabaseReference.child(listKeys.get(position)).removeValue();
-
     }
 }
