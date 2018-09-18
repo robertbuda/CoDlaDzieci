@@ -62,7 +62,8 @@
                         android:layout_width="48dp"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/ic_favorite_border_black_24dp"
-                        android:drawablePadding="4dp" />
+                        android:drawablePadding="4dp"
+                        />
 
                     <Button
                         android:id="@+id/openLinkToOrganizer"
@@ -101,38 +102,15 @@
                     android:orientation="vertical">
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_weight="3"
-                        android:paddingTop="4dp"
-                        android:paddingStart="4dp"
-                        >
-
-                        <TextView
-                            android:id="@+id/itemCardAge"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="12345678901234567890"
-                            android:layout_weight="1"
-                            android:drawableStart="@drawable/ic_child_care_black_24dp"
-                            android:gravity="center_vertical"
-                            android:drawablePadding="4dp"
-                            >
-                        </TextView>
-
                     <TextView
                         android:id="@+id/itemCardTitle"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/brak_danych"
                         android:textSize="16dp"
                         android:textStyle="bold"
-                        android:layout_weight="2">
+                        android:padding="4dp">
                     </TextView>
-
-                    </LinearLayout>
 
 
 
@@ -142,8 +120,8 @@
                     android:orientation="horizontal"
                     android:layout_weight="3"
                     android:paddingBottom="4dp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
                     >
 
                     <TextView
@@ -162,6 +140,19 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="3"
+                        android:paddingTop="4dp"
+                        android:paddingStart="4dp"
+                        >
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@color/colorLightGrey"
                         android:orientation="vertical"
                         android:paddingTop="4dp"
@@ -174,6 +165,19 @@
                             android:weightSum="2"
                             android:paddingStart="4dp"
                             >
+
+
+                            <TextView
+                                android:id="@+id/itemCardAge"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="12345678901234567890"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/ic_child_care_black_24dp"
+                                android:gravity="center_vertical"
+                                android:drawablePadding="4dp"
+                                >
+                            </TextView>
 
                             <TextView
                                 android:id="@+id/itemCardCategory"
@@ -189,18 +193,6 @@
                             </TextView>
 
 
-                            <TextView
-                                android:id="@+id/itemCardDate"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:text="12345678910"
-                                android:layout_weight="1"
-                                android:drawableStart="@drawable/ic_date_range_black_24dp"
-                                android:drawablePadding="4dp"
-                                android:gravity="center_vertical"
-                                >
-                            </TextView>
-
                         </LinearLayout>
 
 
@@ -214,6 +206,18 @@
                             >
 
                             <TextView
+                                android:id="@+id/itemCardDate"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="12345678910"
+                                android:layout_weight="1"
+                                android:drawableStart="@drawable/ic_date_range_black_24dp"
+                                android:drawablePadding="4dp"
+                                android:gravity="center_vertical"
+                                >
+                            </TextView>
+
+                            <TextView
                                 android:id="@+id/itemCardPrice"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -223,6 +227,17 @@
                                 android:drawablePadding="4dp"
                                 android:gravity="center_vertical" >
                             </TextView>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:padding="4dp"
+                            >
 
                             <TextView
                                 android:id="@+id/itemCardLongInfo"
@@ -238,6 +253,8 @@
                             </TextView>
 
                         </LinearLayout>
+
+
 
                     </LinearLayout>
 
