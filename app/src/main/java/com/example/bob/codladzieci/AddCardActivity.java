@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -55,6 +56,7 @@ public class AddCardActivity extends AppCompatActivity {
     @BindView(R.id.textInputDate) TextView textInputDate;
     @BindView(R.id.textInputPrice) TextView textInputPrice;
     @BindView(R.id.textInputLongInfo) TextView textInputLongInfo;
+    @BindView(R.id.photoProgress) ProgressBar photoProgress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,7 +105,7 @@ public class AddCardActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        photoProgress.setVisibility(View.VISIBLE);
         if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {
             Uri selectedImageUri = data.getData();
 
@@ -132,6 +134,7 @@ public class AddCardActivity extends AppCompatActivity {
                                     .load(uri)
                                     .apply(options)
                                     .into(inputCardPhoto);
+                            photoProgress.setVisibility(View.INVISIBLE);
                         }
                     });
                 }

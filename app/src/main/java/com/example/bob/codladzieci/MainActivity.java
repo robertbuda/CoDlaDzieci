@@ -1,6 +1,7 @@
 package com.example.bob.codladzieci;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    @BindView(R.id.navigation) BottomNavigationView navigation;
-    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
 
     private HomeFragment homefragment = new HomeFragment();
     private OverviewFragment overviewFragment = new OverviewFragment();
@@ -40,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private LibraryFragment libraryFragment = new LibraryFragment();
 
     private CardDialog cardDialog;
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -90,14 +92,13 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void showFloatingButton () {
-        //FloatingActionButton fab = findViewById(R.id.fab);
+    public void showFloatingButton() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cardDialog = new CardDialog();
-            cardDialog.setCancelable(true);
-            cardDialog.show(getSupportFragmentManager(),TAG);
+                cardDialog.setCancelable(true);
+                cardDialog.show(getSupportFragmentManager(), TAG);
             }
         });
     }
