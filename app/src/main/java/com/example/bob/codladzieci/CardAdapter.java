@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,7 +50,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull CardHolder holder, final int position) {
-    Card card = cards.get(position);
+        Card card = cards.get(position);
     //selectedPosition = holder.getAdapterPosition();
 
     TextView itemCardOrganizerName = holder.itemCardOrganizerName;

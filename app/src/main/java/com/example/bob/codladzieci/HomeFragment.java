@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +50,6 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
     private CardsContract.CardAdapterInterface cardAdapterInterface;
     private Context context;
 
-
     @BindView(R.id.cardHomeRecyclerView) RecyclerView cardHomeRecyclerView;
     @BindView(R.id.fragmentHomeProgressBar) ProgressBar fragmentHomeProgressBar;
 
@@ -63,6 +63,8 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mCardDatabaseReference = mFirebaseDatabase.getReference().child("cards");
+        mCardDatabaseReference.getDatabase().getReference("cards").orderByChild("cardLongInfo");
+
         mFirebaseStorage = FirebaseStorage.getInstance();
         mCardPhotosStorageReference = mFirebaseStorage.getReference().child("card_photos");
 
@@ -72,6 +74,11 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
         cardAdapter = new CardAdapter(cardList,this.getActivity());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        // reverse view in recycler
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+
         cardHomeRecyclerView.setLayoutManager(linearLayoutManager);
         cardHomeRecyclerView.setAdapter(cardAdapter);
 
@@ -88,8 +95,13 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Card card = dataSnapshot.getValue(Card.class);
-                    cardList.add(card);
-                    listKeys.add(dataSnapshot.getKey());
+                    if (card.getCardCategory().equals("sport1")) {
+                        cardList.add(card);
+                        listKeys.add(dataSnapshot.getKey());
+                    } else {
+                        cardList.add(card);
+                        listKeys.add(dataSnapshot.getKey());
+                    }
                     cardAdapter.notifyDataSetChanged();
                     fragmentHomeProgressBar.setVisibility(View.INVISIBLE);
                 }
@@ -128,6 +140,7 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                 }
             };
             mCardDatabaseReference.addChildEventListener(childEventListener);
+
         }
     }
 
