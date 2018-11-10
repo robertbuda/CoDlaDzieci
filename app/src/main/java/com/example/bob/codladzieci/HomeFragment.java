@@ -50,10 +50,13 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
     private CardsContract.CardAdapterInterface cardAdapterInterface;
     private Context context;
     private List<Card> cardList2;
+    private List<Card> cardList3;
     private List<String> listKeys2;
+    private List<String> listKeys3;
     private CardAdapter cardAdapter2;
+    private CardAdapter cardAdapter3;
     private ChildEventListener childEventListener2;
-
+    private ChildEventListener childEventListener3;
 
     @BindView(R.id.cardHomeRecyclerView)
     RecyclerView cardHomeRecyclerView;
@@ -61,6 +64,8 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
     ProgressBar fragmentHomeProgressBar;
     @BindView(R.id.cardHomeRecyclerView2)
     RecyclerView cardHomeRecyclerView2;
+    @BindView(R.id.cardHomeRecyclerView3)
+    RecyclerView cardHomeRecyclerView3;
 
     @Nullable
     @Override
@@ -77,6 +82,14 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
         mFirebaseStorage = FirebaseStorage.getInstance();
         mCardPhotosStorageReference = mFirebaseStorage.getReference().child("card_photos");
 
+        setAdapter();
+        setAdapter2();
+        setAdapter3();
+
+        return view;
+    }
+
+    private void setAdapter() {
         cardList = new ArrayList<>();
         listKeys = new ArrayList<>();
         cardAdapter = new CardAdapter(cardList, this.getActivity());
@@ -89,21 +102,6 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
         cardHomeRecyclerView.setAdapter(cardAdapter);
         cardAdapter.setClickEvent(HomeFragment.this);
         attachDatabaseReadListener();
-
-        cardList2 = new ArrayList<>();
-        listKeys2 = new ArrayList<>();
-        cardAdapter2 = new CardAdapter(cardList2, this.getActivity());
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this.getActivity());
-        linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
-        // reverse view in recycler
-        linearLayoutManager2.setReverseLayout(true);
-        linearLayoutManager2.setStackFromEnd(true);
-        cardHomeRecyclerView2.setLayoutManager(linearLayoutManager2);
-        cardHomeRecyclerView2.setAdapter(cardAdapter2);
-        cardAdapter2.setClickEvent(HomeFragment.this);
-        attachDatabaseReadListener2();
-
-        return view;
     }
 
     private void attachDatabaseReadListener() {
@@ -112,10 +110,7 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Card card = dataSnapshot.getValue(Card.class);
-                    if (card.getCardCategory().equals("sport1")) {
-                        cardList.add(card);
-                        listKeys.add(dataSnapshot.getKey());
-                    } else {
+                    if (card.getOrganizerAddress().equals("Kraków")) {
                         cardList.add(card);
                         listKeys.add(dataSnapshot.getKey());
                     }
@@ -170,6 +165,7 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
         super.onPause();
         detachDatabaseReadListener();
         detachDatabaseReadListener2();
+        detachDatabaseReadListener3();
     }
 
     private void detachDatabaseReadListener() {
@@ -186,11 +182,34 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
         }
     }
 
+    private void detachDatabaseReadListener3() {
+        if (childEventListener3 != null) {
+            mCardDatabaseReference.removeEventListener(childEventListener3);
+            childEventListener3 = null;
+        }
+    }
+
     @Override
     public void clickEventItem(int position) {
         mCardDatabaseReference.child(listKeys.get(position)).removeValue();
     }
 
+
+
+    private void setAdapter2() {
+        cardList2 = new ArrayList<>();
+        listKeys2 = new ArrayList<>();
+        cardAdapter2 = new CardAdapter(cardList2, this.getActivity());
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this.getActivity());
+        linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
+        // reverse view in recycler
+        linearLayoutManager2.setReverseLayout(true);
+        linearLayoutManager2.setStackFromEnd(true);
+        cardHomeRecyclerView2.setLayoutManager(linearLayoutManager2);
+        cardHomeRecyclerView2.setAdapter(cardAdapter2);
+        cardAdapter2.setClickEvent(HomeFragment.this);
+        attachDatabaseReadListener2();
+    }
 
     private void attachDatabaseReadListener2() {
         if (childEventListener2 == null) {
@@ -206,7 +225,7 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                         listKeys2.add(dataSnapshot.getKey());
                     }
                     cardAdapter2.notifyDataSetChanged();
-                    fragmentHomeProgressBar.setVisibility(View.INVISIBLE);
+                    //fragmentHomeProgressBar.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
@@ -243,6 +262,75 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                 }
             };
             mCardDatabaseReference.addChildEventListener(childEventListener2);
+        }
+    }
+
+    private void setAdapter3() {
+        cardList3 = new ArrayList<>();
+        listKeys3 = new ArrayList<>();
+        cardAdapter3 = new CardAdapter(cardList3, this.getActivity());
+        LinearLayoutManager linearLayoutManager3 = new LinearLayoutManager(this.getActivity());
+        linearLayoutManager3.setOrientation(LinearLayoutManager.HORIZONTAL);
+        // reverse view in recycler
+        linearLayoutManager3.setReverseLayout(true);
+        linearLayoutManager3.setStackFromEnd(true);
+        cardHomeRecyclerView3.setLayoutManager(linearLayoutManager3);
+        cardHomeRecyclerView3.setAdapter(cardAdapter3);
+        cardAdapter3.setClickEvent(HomeFragment.this);
+        attachDatabaseReadListener3();
+    }
+
+    private void attachDatabaseReadListener3() {
+        if (childEventListener3 == null) {
+            childEventListener3 = new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    Card card = dataSnapshot.getValue(Card.class);
+                    if (card.getCardCategory().equals("sport1")) {
+                        cardList3.add(card);
+                        listKeys3.add(dataSnapshot.getKey());
+                    } else {
+                        cardList3.add(card);
+                        listKeys3.add(dataSnapshot.getKey());
+                    }
+                    cardAdapter3.notifyDataSetChanged();
+                    //fragmentHomeProgressBar.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    String key = dataSnapshot.getKey();
+                    int index = listKeys3.indexOf(key);
+
+                    if (index != -1) {
+                        cardList3.remove(index);
+                        listKeys3.remove(index);
+                        cardAdapter3.notifyDataSetChanged();
+
+                        Card card = dataSnapshot.getValue(Card.class);
+                        String url = card.getCardPhotoUrl();
+                        if (url != null) {
+                            StorageReference photoRef = mFirebaseStorage.getReferenceFromUrl(url);
+                            //Toast.makeText(context,"Usuwanie " + photoRef, Toast.LENGTH_LONG).show();
+                            photoRef.delete();
+                        }
+                    }
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            };
+            mCardDatabaseReference.addChildEventListener(childEventListener3);
         }
     }
 

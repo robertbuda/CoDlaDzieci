@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="Ostatnie wydarzenia"
+                android:text="Miejsca"
                 android:textSize="16dp" />
 
             <android.support.v7.widget.RecyclerView
@@ -41,12 +41,28 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="Inne wydarzenia"
+                android:text="Wydarzenia"
                 android:textSize="16dp"
                 />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/cardHomeRecyclerView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Sport"
+                android:textSize="16dp"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cardHomeRecyclerView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </android.support.v7.widget.RecyclerView>
