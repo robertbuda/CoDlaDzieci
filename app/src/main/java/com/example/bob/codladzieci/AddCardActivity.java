@@ -7,17 +7,23 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -27,8 +33,10 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +65,17 @@ public class AddCardActivity extends AppCompatActivity {
     @BindView(R.id.textInputPrice) TextView textInputPrice;
     @BindView(R.id.textInputLongInfo) TextView textInputLongInfo;
     @BindView(R.id.photoProgress) ProgressBar photoProgress;
+
+    public static final String ANONYMOUS = "Login ->";
+    public static final int RC_SIGN_IN = 1;
+
+    List<AuthUI.IdpConfig> providers = Arrays.asList(
+            new AuthUI.IdpConfig.EmailBuilder().build(),
+            new AuthUI.IdpConfig.GoogleBuilder().build());
+
+    private String mUsername;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,14 +119,75 @@ public class AddCardActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent,"Add photo to card"),RC_PHOTO_PICKER);
             }
         });
+
+        mUsername = ANONYMOUS;
+        mFirebaseAuth = FirebaseAuth.getInstance();
+
+        addLoginAuth();
     }
+
+    private void addLoginAuth() {
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Toast.makeText(AddCardActivity.this,"You are sign in",Toast.LENGTH_SHORT).show();
+                    onSignedInInitialize(user.getDisplayName());
+                } else {
+                    onSignedOutCleanup();
+                    startActivityForResult(
+                            AuthUI.getInstance()
+                                    .createSignInIntentBuilder()
+                                    .setIsSmartLockEnabled(false)
+                                    .setAvailableProviders(providers)
+                                    .build(),
+                            RC_SIGN_IN);
+                }
+            }
+        };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mAuthStateListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+
+    }
+
+    private void onSignedInInitialize(String displayName) {
+        mUsername = displayName;
+        //attachDatabaseReadListener();
+    }
+
+    private void onSignedOutCleanup() {
+        mUsername = ANONYMOUS;
+        //mMessageAdapter.clear();
+        //detachDatabaseReadListener();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        photoProgress.setVisibility(View.VISIBLE);
         if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {
             Uri selectedImageUri = data.getData();
+            photoProgress.setVisibility(View.VISIBLE);
 
             Bitmap bmp = null;
             try { bmp = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImageUri);
@@ -139,6 +219,13 @@ public class AddCardActivity extends AppCompatActivity {
                     });
                 }
             });
+        } else   if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK){
+                Toast.makeText(AddCardActivity.this,"Signed In",Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED){
+                Toast.makeText(AddCardActivity.this,"Signed In Cancelled",Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
     }
 }

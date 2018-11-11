@@ -1,5 +1,6 @@
 package com.example.bob.codladzieci;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -19,8 +21,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EventListener;
 import java.util.List;
 
 import butterknife.BindView;
@@ -70,6 +81,18 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    public static final String ANONYMOUS = "Login ->";
+    public static final int RC_SIGN_IN = 1;
+
+    List<AuthUI.IdpConfig> providers = Arrays.asList(
+            new AuthUI.IdpConfig.EmailBuilder().build(),
+            new AuthUI.IdpConfig.GoogleBuilder().build());
+
+    private String mUsername;
+    private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private Menu menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,13 +106,37 @@ public class MainActivity extends AppCompatActivity {
         changeFragment(homefragment);
         showFloatingButton();
 
+        mUsername = ANONYMOUS;
+
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Toast.makeText(MainActivity.this,"You are sign in",Toast.LENGTH_SHORT).show();
+                    onSignedInInitialize(user.getDisplayName());
+                } else {
+                    /*onSignedOutCleanup();
+                    startActivityForResult(
+                            AuthUI.getInstance()
+                                    .createSignInIntentBuilder()
+                                    .setIsSmartLockEnabled(false)
+                                    .setAvailableProviders(providers)
+                                    .build(),
+                            RC_SIGN_IN);*/
+                }
+            }
+        };
     }
+
 
     private void changeFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frameLayoutFragment, fragment)
                 .commit();
+
     }
 
     public void showFloatingButton() {
@@ -105,24 +152,53 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        menu.findItem(R.id.user_login_name).setTitle(mUsername);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.sign_in_menu:
-                //AuthUI.getInstance().signIn(this);
+                //AuthUI.getInstance().silentSignIn(this,providers);
+                addLoginAuth();
+
                 return true;
             case R.id.sign_out_menu:
-                //AuthUI.getInstance().signOut(this);
+                AuthUI.getInstance().signOut(this);
+                menu.findItem(R.id.user_login_name).setTitle(mUsername);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void addLoginAuth() {
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Toast.makeText(MainActivity.this,"You are sign in",Toast.LENGTH_SHORT).show();
+                    onSignedInInitialize(user.getDisplayName());
+                } else {
+                    onSignedOutCleanup();
+                    startActivityForResult(
+                            AuthUI.getInstance()
+                                    .createSignInIntentBuilder()
+                                    .setIsSmartLockEnabled(false)
+                                    .setAvailableProviders(providers)
+                                    .build(),
+                            RC_SIGN_IN);
+                }
+            }
+        };
     }
 
     public void addActivityForKids(View view) {
@@ -134,6 +210,47 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mAuthStateListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
 
     }
+
+    private void onSignedInInitialize(String displayName) {
+        mUsername = displayName;
+        //attachDatabaseReadListener();
+    }
+
+    private void onSignedOutCleanup() {
+        mUsername = ANONYMOUS;
+        //mMessageAdapter.clear();
+        //detachDatabaseReadListener();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK){
+                Toast.makeText(MainActivity.this,"Signed In",Toast.LENGTH_SHORT).show();
+                menu.findItem(R.id.user_login_name).setTitle(mUsername);
+            } else if (resultCode == RESULT_CANCELED){
+                Toast.makeText(MainActivity.this,"Signed In Cancelled",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
+
 }

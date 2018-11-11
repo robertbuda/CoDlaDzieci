@@ -77,7 +77,6 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mCardDatabaseReference = mFirebaseDatabase.getReference().child("cards");
-        mCardDatabaseReference.getDatabase().getReference("cards").orderByChild("cardLongInfo");
 
         mFirebaseStorage = FirebaseStorage.getInstance();
         mCardPhotosStorageReference = mFirebaseStorage.getReference().child("card_photos");
@@ -191,7 +190,7 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
 
     @Override
     public void clickEventItem(int position) {
-        mCardDatabaseReference.child(listKeys.get(position)).removeValue();
+            mCardDatabaseReference.child(listKeys.get(position)).removeValue();
     }
 
 

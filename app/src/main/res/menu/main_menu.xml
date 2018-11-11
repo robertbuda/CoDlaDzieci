@@ -16,4 +16,10 @@
         android:id="@+id/sign_out_menu"
         android:title="@string/wyloguj"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/user_login_name"
+        android:title="@string/name"
+        app:showAsAction="always"
+        />
 </menu>
