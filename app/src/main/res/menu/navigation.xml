@@ -24,6 +24,7 @@
     <item
         android:id="@+id/navigation_library"
         android:icon="@drawable/ic_library_books_black_24dp"
-        android:title="@string/biblioteka" />
+        android:title="@string/biblioteka"
+        android:visible="false"/>
 
 </menu>

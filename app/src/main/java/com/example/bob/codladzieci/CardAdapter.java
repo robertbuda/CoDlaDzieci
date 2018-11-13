@@ -88,7 +88,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder>{
     final TextView itemCardLongInfo = holder.itemCardLongInfo;
     itemCardLongInfo.setText(card.getCardLongInfo());
 
-    final Button itemDeleteCard = holder.itemDeleteCard;
+    final ImageView itemDeleteCard = holder.itemDeleteCard;
     itemDeleteCard.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -116,7 +116,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder>{
         @BindView(R.id.itemCardDate) TextView itemCardDate;
         @BindView(R.id.itemCardPrice) TextView itemCardPrice;
         @BindView(R.id.itemCardLongInfo) TextView itemCardLongInfo;
-        @BindView(R.id.itemDeleteCard) Button itemDeleteCard;
+        @BindView(R.id.itemDeleteCard) ImageView itemDeleteCard;
 
 
         public CardHolder(@NonNull View itemView) {

@@ -2,6 +2,7 @@ package com.example.bob.codladzieci;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,22 +52,36 @@ public class AddCardActivity extends AppCompatActivity {
     private StorageReference mCardPhotosStorageReference;
     private Context context;
     private String photoUrl;
+    private int textEmptyField = R.string.Uzupełnij_pole;
 
-    private static final int RC_PHOTO_PICKER =  2;
+    private static final int RC_PHOTO_PICKER = 2;
 
-    @BindView(R.id.buttonAddCard) Button buttonAddCard;
-    @BindView(R.id.textInputOrganizerName) TextView textInputOrganizerName;
-    @BindView(R.id.textInputOrganizerAddress) TextView textInputOrganizerAddress;
-    @BindView(R.id.inputCardPhoto) ImageView inputCardPhoto;
-    @BindView(R.id.addCardPhoto) Button addCardPhoto;
-    @BindView(R.id.textInputCardTitle) TextView textInputCardTitle;
-    @BindView(R.id.textInputShortInfo) TextView textInputShortInfo;
-    @BindView(R.id.textInputCardCategory) TextView textInputCardCategory;
-    @BindView(R.id.textInputKidsAge) TextView textInputKidsAge;
-    @BindView(R.id.textInputDate) TextView textInputDate;
-    @BindView(R.id.textInputPrice) TextView textInputPrice;
-    @BindView(R.id.textInputLongInfo) TextView textInputLongInfo;
-    @BindView(R.id.photoProgress) ProgressBar photoProgress;
+    @BindView(R.id.buttonAddCard)
+    Button buttonAddCard;
+    @BindView(R.id.textInputOrganizerName)
+    TextView textInputOrganizerName;
+    @BindView(R.id.textInputOrganizerAddress)
+    TextView textInputOrganizerAddress;
+    @BindView(R.id.inputCardPhoto)
+    ImageView inputCardPhoto;
+    @BindView(R.id.addCardPhoto)
+    Button addCardPhoto;
+    @BindView(R.id.textInputCardTitle)
+    TextView textInputCardTitle;
+    @BindView(R.id.textInputShortInfo)
+    TextView textInputShortInfo;
+    @BindView(R.id.textInputCardCategory)
+    TextView textInputCardCategory;
+    @BindView(R.id.textInputKidsAge)
+    TextView textInputKidsAge;
+    @BindView(R.id.textInputDate)
+    TextView textInputDate;
+    @BindView(R.id.textInputPrice)
+    TextView textInputPrice;
+    @BindView(R.id.textInputLongInfo)
+    TextView textInputLongInfo;
+    @BindView(R.id.photoProgress)
+    ProgressBar photoProgress;
 
     public static final String ANONYMOUS = "Login ->";
     public static final int RC_SIGN_IN = 1;
@@ -99,14 +116,34 @@ public class AddCardActivity extends AppCompatActivity {
         buttonAddCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if (textInputCardTitle != null && textInputCardCategory != null && textInputOrganizerName != null) {
-                    Card card = new Card(textInputCardTitle.getText().toString(), textInputCardCategory.getText().toString(), textInputKidsAge.getText().toString(), textInputDate.getText().toString(), textInputPrice.getText().toString(), textInputShortInfo.getText().toString(), textInputLongInfo.getText().toString(), textInputOrganizerName.getText().toString(), textInputOrganizerAddress.getText().toString(), photoUrl);
+                if (TextUtils.isEmpty(textInputOrganizerName.getText().toString().trim())) {
+                    textInputOrganizerName.setError(getString(textEmptyField));
+                } else if (TextUtils.isEmpty(textInputOrganizerAddress.getText().toString().trim())) {
+                    textInputOrganizerAddress.setError(getString(textEmptyField));
+                } else if (TextUtils.isEmpty(textInputCardTitle.getText().toString().trim())) {
+                    textInputCardTitle.setError(getString(textEmptyField));
+                } else if (TextUtils.isEmpty(textInputShortInfo.getText().toString().trim())) {
+                    textInputShortInfo.setError(getString(textEmptyField));
+                } else if (TextUtils.isEmpty(textInputKidsAge.getText().toString().trim())) {
+                    textInputKidsAge.setError(getString(textEmptyField));
+                } else if (TextUtils.isEmpty(textInputCardCategory.getText().toString().trim())) {
+                    textInputCardCategory.setError(getString(textEmptyField));
+                } else if (TextUtils.isEmpty(textInputDate.getText().toString().trim())) {
+                    textInputDate.setError(getString(textEmptyField));
+                } else if (TextUtils.isEmpty(textInputPrice.getText().toString().trim())) {
+                    textInputPrice.setError(getString(textEmptyField));
+                } else {
+                    Card card = new Card(textInputCardTitle.getText().toString(), textInputCardCategory.getText().toString(),
+                            textInputKidsAge.getText().toString(), textInputDate.getText().toString(), textInputPrice.getText().toString(),
+                            textInputShortInfo.getText().toString(), textInputLongInfo.getText().toString(),
+                            textInputOrganizerName.getText().toString(), textInputOrganizerAddress.getText().toString(), photoUrl);
 
                     String key = mCardDatabaseReference.push().getKey();
                     mCardDatabaseReference.child("cards").child(key).setValue(card);
                     Intent intent = new Intent(context, MainActivity.class);
                     startActivity(intent);
                 }
+            }
 
         });
 
@@ -115,8 +152,8 @@ public class AddCardActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                intent.putExtra(Intent.CATEGORY_APP_GALLERY,true);
-                startActivityForResult(Intent.createChooser(intent,"Add photo to card"),RC_PHOTO_PICKER);
+                intent.putExtra(Intent.CATEGORY_APP_GALLERY, true);
+                startActivityForResult(Intent.createChooser(intent, "Add photo to card"), RC_PHOTO_PICKER);
             }
         });
 
@@ -133,7 +170,7 @@ public class AddCardActivity extends AppCompatActivity {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Toast.makeText(AddCardActivity.this,"You are sign in",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddCardActivity.this, "You are sign in", Toast.LENGTH_SHORT).show();
                     onSignedInInitialize(user.getDisplayName());
                 } else {
                     onSignedOutCleanup();
@@ -190,7 +227,8 @@ public class AddCardActivity extends AppCompatActivity {
             photoProgress.setVisibility(View.VISIBLE);
 
             Bitmap bmp = null;
-            try { bmp = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImageUri);
+            try {
+                bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -219,11 +257,11 @@ public class AddCardActivity extends AppCompatActivity {
                     });
                 }
             });
-        } else   if (requestCode == RC_SIGN_IN) {
-            if (resultCode == RESULT_OK){
-                Toast.makeText(AddCardActivity.this,"Signed In",Toast.LENGTH_SHORT).show();
-            } else if (resultCode == RESULT_CANCELED){
-                Toast.makeText(AddCardActivity.this,"Signed In Cancelled",Toast.LENGTH_SHORT).show();
+        } else if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(AddCardActivity.this, "Signed In", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(AddCardActivity.this, "Signed In Cancelled", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

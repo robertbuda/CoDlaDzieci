@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public static final String ANONYMOUS = "Login ->";
+    public static final String ANONYMOUS = "Nie zalogowano";
     public static final int RC_SIGN_IN = 1;
 
     List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -107,7 +108,10 @@ public class MainActivity extends AppCompatActivity {
         showFloatingButton();
 
         mUsername = ANONYMOUS;
+        startAuth();
+    }
 
+    private void startAuth() {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -117,19 +121,14 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"You are sign in",Toast.LENGTH_SHORT).show();
                     onSignedInInitialize(user.getDisplayName());
                 } else {
-                    /*onSignedOutCleanup();
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setIsSmartLockEnabled(false)
-                                    .setAvailableProviders(providers)
-                                    .build(),
-                            RC_SIGN_IN);*/
+                    onSignedInInitialize(mUsername);
+                }
+                if (menu != null){
+                    menu.findItem(R.id.user_login_name).setTitle(mUsername);
                 }
             }
         };
     }
-
 
     private void changeFragment(Fragment fragment) {
         getSupportFragmentManager()
@@ -155,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
         this.menu = menu;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        /*FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        menu.findItem(R.id.user_login_name).setTitle(user.getDisplayName());*/
         menu.findItem(R.id.user_login_name).setTitle(mUsername);
         return true;
     }
@@ -165,12 +166,11 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.sign_in_menu:
-                //AuthUI.getInstance().silentSignIn(this,providers);
                 addLoginAuth();
-
                 return true;
             case R.id.sign_out_menu:
                 AuthUI.getInstance().signOut(this);
+                mUsername = ANONYMOUS;
                 menu.findItem(R.id.user_login_name).setTitle(mUsername);
                 return true;
             default:
@@ -179,26 +179,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addLoginAuth() {
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        if (user != null) {
+            Toast.makeText(MainActivity.this,"You are sign in",Toast.LENGTH_SHORT).show();
+            onSignedInInitialize(user.getDisplayName());
 
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Toast.makeText(MainActivity.this,"You are sign in",Toast.LENGTH_SHORT).show();
-                    onSignedInInitialize(user.getDisplayName());
-                } else {
-                    onSignedOutCleanup();
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setIsSmartLockEnabled(false)
-                                    .setAvailableProviders(providers)
-                                    .build(),
-                            RC_SIGN_IN);
-                }
-            }
-        };
+        } else {
+            onSignedOutCleanup();
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(false)
+                            .setAvailableProviders(providers)
+                            .build(),
+                    RC_SIGN_IN);
+        }
+    }
+
+    private void onSignedInInitialize(String displayName) {
+        mUsername = displayName;
+    }
+
+    private void onSignedOutCleanup() {
+        mUsername = ANONYMOUS;
     }
 
     public void addActivityForKids(View view) {
@@ -225,18 +228,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
-
-    }
-
-    private void onSignedInInitialize(String displayName) {
-        mUsername = displayName;
-        //attachDatabaseReadListener();
-    }
-
-    private void onSignedOutCleanup() {
-        mUsername = ANONYMOUS;
-        //mMessageAdapter.clear();
-        //detachDatabaseReadListener();
     }
 
     @Override
@@ -252,5 +243,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
 
 }

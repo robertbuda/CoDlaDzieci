@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:maxLength="10"
+                    android:maxLength="14"
                     android:paddingStart="4dp"
                     android:text="@string/brak_danych" />
 
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:maxLength="10"
+                    android:maxLength="14"
                     android:paddingEnd="4dp"
                     android:text="@string/brak_danych"
                     android:textAlignment="textEnd" />
@@ -59,35 +59,37 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
+                    android:layout_gravity="end"
+                    android:padding="4dp"
                     android:orientation="horizontal">
 
-                    <Button
+                    <ImageView
                         android:id="@+id/addToFavorite"
                         android:layout_width="48dp"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/ic_favorite_border_black_24dp"
-                        android:drawablePadding="4dp" />
+                        android:src="@drawable/ic_favorite_border_black_24dp"
+                        android:drawablePadding="4dp"
+                       />
 
-                    <Button
+                    <ImageView
                         android:id="@+id/openLinkToOrganizer"
                         android:layout_width="48dp"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/ic_link_black_24dp"
+                        android:src="@drawable/ic_link_black_24dp"
                         android:drawablePadding="4dp" />
 
-                    <Button
+                    <ImageView
                         android:id="@+id/showOnMap"
                         android:layout_width="48dp"
                         android:layout_height="wrap_content"
-                        android:drawableEnd="@drawable/ic_map_black_24dp"
+                        android:src="@drawable/ic_map_black_24dp"
                         android:drawablePadding="4dp" />
 
-                    <Button
+                    <ImageView
                         android:id="@+id/itemDeleteCard"
                         android:layout_width="48dp"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_delete_black_24dp"
+                        android:src="@drawable/ic_delete_black_24dp"
                         android:drawablePadding="4dp" />
 
                 </LinearLayout>
@@ -107,7 +109,8 @@
                     android:paddingEnd="4dp"
                     android:text="@string/brak_danych"
                     android:textSize="12dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:maxLength="30"/>
 
                 <TextView
                     android:id="@+id/itemCardShortInfo"
@@ -117,7 +120,8 @@
                     android:maxLines="2"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="@string/brak_danych" />
+                    android:text="@string/brak_danych"
+                    android:maxLength="100"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -140,9 +144,10 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableStart="@drawable/ic_child_care_black_24dp"
-                            android:drawablePadding="4dp"
+                            android:drawablePadding="2dp"
                             android:gravity="center_vertical"
-                            android:text="@string/brak_danych" />
+                            android:text="@string/brak_danych"
+                            android:maxLength="10"/>
 
                         <TextView
                             android:id="@+id/itemCardCategory"
@@ -150,9 +155,10 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableStart="@drawable/ic_apps_black_24dp"
-                            android:drawablePadding="4dp"
+                            android:drawablePadding="2dp"
                             android:gravity="center_vertical"
-                            android:text="@string/brak_danych">
+                            android:text="@string/brak_danych"
+                            android:maxLength="10">
 
                         </TextView>
 
@@ -172,9 +178,10 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableStart="@drawable/ic_date_range_black_24dp"
-                            android:drawablePadding="4dp"
+                            android:drawablePadding="2dp"
                             android:gravity="center_vertical"
-                            android:text="@string/brak_danych" />
+                            android:text="@string/brak_danych"
+                            android:maxLength="10"/>
 
                         <TextView
                             android:id="@+id/itemCardPrice"
@@ -182,9 +189,10 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableStart="@drawable/ic_credit_card_black_24dp"
-                            android:drawablePadding="4dp"
+                            android:drawablePadding="2dp"
                             android:gravity="center_vertical"
-                            android:text="@string/brak_danych" />
+                            android:text="@string/brak_danych"
+                            android:maxLength="10"/>
 
                     </LinearLayout>
 
@@ -204,7 +212,7 @@
                         android:padding="4dp"
                         android:paddingStart="8sp"
                         android:paddingEnd="4dp"
-                        android:text="Ostatnia zmiana: "
+                        android:text="Dodano: "
                         android:textSize="8dp">
 
                     </TextView>
