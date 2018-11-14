@@ -1,6 +1,9 @@
 package com.example.bob.codladzieci;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +23,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +38,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,10 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    @BindView(R.id.navigation)
-    BottomNavigationView navigation;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
+    @BindView(R.id.navigation) BottomNavigationView navigation;
+    @BindView(R.id.fab) FloatingActionButton fab;
 
     private HomeFragment homefragment = new HomeFragment();
     private OverviewFragment overviewFragment = new OverviewFragment();
@@ -55,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private LibraryFragment libraryFragment = new LibraryFragment();
 
     private CardDialog cardDialog;
+    private CardCityDialog cardCityDialog;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -93,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private Menu menu;
+    private ChildEventListener childEventListener;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mCardDatabaseReference;
+    private String START_CITY = "Kraków";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
 
         mUsername = ANONYMOUS;
         startAuth();
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mCardDatabaseReference = mFirebaseDatabase.getReference().child("cards");
+
+        homefragment.setCity(START_CITY);
     }
 
     private void startAuth() {
@@ -118,12 +139,12 @@ public class MainActivity extends AppCompatActivity {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Toast.makeText(MainActivity.this,"You are sign in",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "You are sign in", Toast.LENGTH_SHORT).show();
                     onSignedInInitialize(user.getDisplayName());
                 } else {
                     onSignedInInitialize(mUsername);
                 }
-                if (menu != null){
+                if (menu != null) {
                     menu.findItem(R.id.user_login_name).setTitle(mUsername);
                 }
             }
@@ -135,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.frameLayoutFragment, fragment)
                 .commit();
-
     }
 
     public void showFloatingButton() {
@@ -154,12 +174,10 @@ public class MainActivity extends AppCompatActivity {
         this.menu = menu;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-        /*FirebaseUser user = mFirebaseAuth.getCurrentUser();
-        menu.findItem(R.id.user_login_name).setTitle(user.getDisplayName());*/
         menu.findItem(R.id.user_login_name).setTitle(mUsername);
+        menu.findItem(R.id.user_city).setTitle(START_CITY);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -181,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
     private void addLoginAuth() {
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         if (user != null) {
-            Toast.makeText(MainActivity.this,"You are sign in",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "You are sign in", Toast.LENGTH_SHORT).show();
             onSignedInInitialize(user.getDisplayName());
 
         } else {
@@ -227,23 +245,46 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
-            if (resultCode == RESULT_OK){
-                Toast.makeText(MainActivity.this,"Signed In",Toast.LENGTH_SHORT).show();
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(MainActivity.this, "Signed In", Toast.LENGTH_SHORT).show();
                 menu.findItem(R.id.user_login_name).setTitle(mUsername);
-            } else if (resultCode == RESULT_CANCELED){
-                Toast.makeText(MainActivity.this,"Signed In Cancelled",Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(MainActivity.this, "Signed In Cancelled", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
     }
 
+    @OnClick
+    public void changeUser(MenuItem menuItem) {
+        addLoginAuth();
+    }
 
+    @OnClick
+    public void changeCity(MenuItem menuItem) {
+        cardCityDialog = new CardCityDialog();
+        cardCityDialog.setCancelable(true);
+        cardCityDialog.show(getSupportFragmentManager(), TAG);
+    }
+
+    @OnClick
+    public void changeCityName(View view) {
+        String city = String.valueOf(cardCityDialog.getCityName().getText());
+        menu.findItem(R.id.user_city).setTitle(city);
+        homefragment.setCity(city);
+        cardCityDialog.dismiss();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .detach(homefragment)
+                .attach(homefragment)
+                .commit();
+    }
 
 }

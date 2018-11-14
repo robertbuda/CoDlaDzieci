@@ -135,7 +135,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder>{
         void clickEventItem(int position);
     }
 
-    ClickEvent clickevent;
+    private ClickEvent clickevent;
 
     public void setClickEvent(ClickEvent event) {
         this.clickevent = event;

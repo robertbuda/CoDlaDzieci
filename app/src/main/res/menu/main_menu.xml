@@ -18,8 +18,19 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/user_city"
+        android:title="Ustaw miasto"
+        app:showAsAction="always"
+        android:onClick="changeCity"
+        />
+
+    <item
         android:id="@+id/user_login_name"
         android:title="@string/name"
         app:showAsAction="always"
+        android:onClick="changeUser"
         />
+
+
+
 </menu>

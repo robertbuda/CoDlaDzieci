@@ -57,6 +57,8 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
     private CardAdapter cardAdapter3;
     private ChildEventListener childEventListener2;
     private ChildEventListener childEventListener3;
+    private String city;
+
 
     @BindView(R.id.cardHomeRecyclerView)
     RecyclerView cardHomeRecyclerView;
@@ -97,10 +99,16 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
         // reverse view in recycler
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
+
         cardHomeRecyclerView.setLayoutManager(linearLayoutManager);
         cardHomeRecyclerView.setAdapter(cardAdapter);
         cardAdapter.setClickEvent(HomeFragment.this);
+
         attachDatabaseReadListener();
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     private void attachDatabaseReadListener() {
@@ -109,7 +117,7 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Card card = dataSnapshot.getValue(Card.class);
-                    if (card.getOrganizerAddress().equals("Kraków")) {
+                    if (card.getOrganizerAddress().equals(city)) {
                         cardList.add(card);
                         listKeys.add(dataSnapshot.getKey());
                     }
@@ -157,6 +165,7 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
     @Override
     public void onResume() {
         super.onResume();
+
     }
 
     @Override
@@ -193,8 +202,6 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
             mCardDatabaseReference.child(listKeys.get(position)).removeValue();
     }
 
-
-
     private void setAdapter2() {
         cardList2 = new ArrayList<>();
         listKeys2 = new ArrayList<>();
@@ -224,7 +231,6 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                         listKeys2.add(dataSnapshot.getKey());
                     }
                     cardAdapter2.notifyDataSetChanged();
-                    //fragmentHomeProgressBar.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
@@ -246,7 +252,6 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                         String url = card.getCardPhotoUrl();
                         if (url != null) {
                             StorageReference photoRef = mFirebaseStorage.getReferenceFromUrl(url);
-                            //Toast.makeText(context,"Usuwanie " + photoRef, Toast.LENGTH_LONG).show();
                             photoRef.delete();
                         }
                     }
@@ -293,7 +298,6 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                         listKeys3.add(dataSnapshot.getKey());
                     }
                     cardAdapter3.notifyDataSetChanged();
-                    //fragmentHomeProgressBar.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
@@ -315,7 +319,6 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                         String url = card.getCardPhotoUrl();
                         if (url != null) {
                             StorageReference photoRef = mFirebaseStorage.getReferenceFromUrl(url);
-                            //Toast.makeText(context,"Usuwanie " + photoRef, Toast.LENGTH_LONG).show();
                             photoRef.delete();
                         }
                     }
@@ -324,7 +327,6 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
@@ -332,5 +334,4 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
             mCardDatabaseReference.addChildEventListener(childEventListener3);
         }
     }
-
 }
