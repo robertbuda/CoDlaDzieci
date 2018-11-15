@@ -89,9 +89,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder>{
     itemDeleteCard.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //sendPositionToHomeFragment(position);
+            sendPositionToHomeFragment(position);
 
-            clickevent.clickEventItem(position);
         }
     });
     }
@@ -126,6 +125,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder>{
 
     public void sendPositionToHomeFragment (int position) {
         Toast.makeText(context,"USUNIĘTO " + position,Toast.LENGTH_LONG).show();
+        clickevent.clickEventItem(position);
+
     }
 
     public interface ClickEvent {
