@@ -1,6 +1,6 @@
 package com.example.bob.codladzieci;
 
-public interface CardsContract {
+public interface CardContract {
 
     interface CardAdapterInterface {
         void deleteItem(int position);

@@ -32,7 +32,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder>{
     private Context context;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mCardDatabaseReference;
-    //private int selectedPosition;
 
     public CardAdapter(List<Card> cards, Context context) {
         this.cards = cards;
@@ -44,14 +43,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardHolder>{
     public CardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.item_card,parent,false);
-        CardHolder cardHolder = new CardHolder(view);
-        return cardHolder;
+        return new CardHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CardHolder holder, final int position) {
         Card card = cards.get(position);
-    //selectedPosition = holder.getAdapterPosition();
 
     TextView itemCardOrganizerName = holder.itemCardOrganizerName;
     itemCardOrganizerName.setText(card.getOrganizerName());

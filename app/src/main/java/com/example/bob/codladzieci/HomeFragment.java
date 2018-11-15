@@ -1,37 +1,26 @@
 package com.example.bob.codladzieci;
 
 import android.content.Context;
-import android.net.Uri;
-import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,8 +36,8 @@ public class HomeFragment extends Fragment implements CardAdapter.ClickEvent {
     private StorageReference mCardPhotosStorageReference;
     private List<Card> cardList;
     private List<String> listKeys;
-    private CardsContract.CardAdapterInterface cardAdapterInterface;
-    private Context context;
+    //private CardContract.CardAdapterInterface cardAdapterInterface;
+    //private Context context;
     private List<Card> cardList2;
     private List<Card> cardList3;
     private List<String> listKeys2;

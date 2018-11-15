@@ -56,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    @BindView(R.id.navigation) BottomNavigationView navigation;
-    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
 
     private HomeFragment homefragment = new HomeFragment();
     private OverviewFragment overviewFragment = new OverviewFragment();
